@@ -2,25 +2,19 @@ import java.util.HashMap;
 
 class Solution {
     public int findMaxLength(int[] nums) {
-        // Map to store the first occurrence of a cumulative sum
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(0, -1); // To handle subarrays starting from index 0
-
         int maxLength = 0;
-        int sum = 0;
-
-        for (int i = 0; i < nums.length; i++) {
-            // Treat 0 as -1
-            sum += (nums[i] == 0) ? -1 : 1;
-
-            if (map.containsKey(sum)) {
-                maxLength = Math.max(maxLength, i - map.get(sum));
+        int count = 0;
+        HashMap<Integer,Integer> countMap=new HashMap<>();
+        countMap.put(0, -1);
+        for (int i = 0; i < nums.length;i++) {
+            count+=nums[i]==1?1:-1;
+            if (countMap.containsKey(count)) {
+                maxLength = Math.max(maxLength,i-countMap.get(count));
             } else {
-                map.put(sum, i);
+                countMap.put(count,i);
             }
         }
-
+        
         return maxLength;
     }
 }
-
