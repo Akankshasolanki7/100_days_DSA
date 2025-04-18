@@ -1,21 +1,19 @@
 class Solution {
+    //Problem of recursion
     public String countAndSay(int n) {
-        if (n == 1) return "1";
-        return rle(countAndSay(n - 1));
-    }
-
-    private String rle(String s) {
-        StringBuilder result = new StringBuilder();
-        int count = 1;
-        for (int i = 1; i < s.length(); i++) {
-            if (s.charAt(i) == s.charAt(i - 1)) {
+        if(n==1) return "1";
+        String say=countAndSay(n-1);
+        StringBuilder result=new StringBuilder();
+        for(int i=0;i<say.length();i++){
+            int count=1;
+            char ch=say.charAt(i);
+            while(i<say.length()-1 && say.charAt(i)==say.charAt(i+1)){
                 count++;
-            } else {
-                result.append(count).append(s.charAt(i - 1));
-                count = 1;
+                i++;
             }
+            result.append(count).append(ch);
         }
-        result.append(count).append(s.charAt(s.length() - 1));
         return result.toString();
+       
     }
 }
