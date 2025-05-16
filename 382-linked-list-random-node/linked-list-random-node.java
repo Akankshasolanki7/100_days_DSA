@@ -9,7 +9,7 @@
  * }
  */
 class Solution {
-    Random rand=new Random();
+    Random rnd=new Random();
     List<Integer> values=new ArrayList<>();
     public Solution(ListNode head) {
         ListNode temp=head;
@@ -22,7 +22,7 @@ class Solution {
     
     public int getRandom() {
         int n=values.size();
-        int index=rand.nextInt(n);
+        int index=rnd.nextInt(n);
         return values.get(index);
         
     }
