@@ -1,24 +1,36 @@
+class Solution {
+     public int maxDiff(int num) {
+        String str1 = Integer.toString(num);
+        String str2 = str1;
 
-
-public class Solution {
-    public int maxDiff(int num) {
-        String numStr = String.valueOf(num);
-        Set<Character> uniqueDigits = new HashSet<>();
-        for (char ch : numStr.toCharArray()) {
-            uniqueDigits.add(ch);
-        }
-
-        int maxVal = num, minVal = num;
-
-        for (char digit : uniqueDigits) {
-            for (char newDigit = '0'; newDigit <= '9'; newDigit++) {
-                if (numStr.charAt(0) == digit && newDigit == '0') continue;
-                String newNumStr = numStr.replace(digit, newDigit);
-                int newNum = Integer.parseInt(newNumStr);
-                maxVal = Math.max(maxVal, newNum);
-                minVal = Math.min(minVal, newNum);
+        // Create max number by replacing first non-9 digit with 9
+        int idx = -1;
+        for (int i = 0; i < str1.length(); i++) {
+            if (str1.charAt(i) != '9') {
+                idx = i;
+                break;
             }
         }
-        return maxVal - minVal;
+
+        if (idx != -1) {
+            char ch = str1.charAt(idx);
+            str1 = str1.replace(ch, '9');
+        }
+
+        // Create min number with care to avoid leading zeros
+        for (int i = 0; i < str2.length(); i++) {
+            char ch = str2.charAt(i);
+            if (i == 0) {
+                if (ch != '1') {
+                    str2 = str2.replace(ch, '1');
+                    break;
+                }
+            } else if (ch != '0' && ch != str2.charAt(0)) {
+                str2 = str2.replace(ch, '0');
+                break;
+            }
+        }
+
+        return Integer.parseInt(str1) - Integer.parseInt(str2);
     }
 }
