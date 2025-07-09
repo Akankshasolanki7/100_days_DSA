@@ -20,23 +20,29 @@ class Solution {
         }
         freeArray[n] = eventTime - endTime[n - 1];  // gap after the last event
 
-        // 2) Sliding window with pointers i (window start) and j (window end)
+       int i = 0;
+        int j = 0;
         int maxSum = 0;
         int currSum = 0;
-        int i = 0;  // left pointer
 
-        for (int j = 0; j < freeArray.length; j++) {
-            currSum += freeArray[j];             // include the j-th gap
+        int m = freeArray.length;
 
-            // If window size > (k+1), move i forward
+        while (j < m) {
+            // include gap at j
+            currSum += freeArray[j];
+
+            // if window size exceeds k+1, remove gap at i and advance i
             if (j - i + 1 > k + 1) {
                 currSum -= freeArray[i];
                 i++;
             }
 
+            // update maxSum
             maxSum = Math.max(maxSum, currSum);
+            j++;
         }
 
         return maxSum;
     }
 }
+    
